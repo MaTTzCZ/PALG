@@ -1,6 +1,6 @@
 package dev.mattz;
 
-import data.Matrix;
+import dev.mattz.data.Matrix;
 
 public class Main {
     public static void main(String[] args) {
