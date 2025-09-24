@@ -4,14 +4,26 @@ import data.Matrix;
 
 public class Main {
     public static void main(String[] args) {
-        int[][] array = {{1, 2, 3}, {4, 5, 6}};
-        Matrix matrix = new Matrix(array);
-        matrix.swapColumns(0, 1);
-        System.out.println(matrix);
+        Matrix matrix = new Matrix(4);
+        matrix.fillWithRandom(1, 20);
+        printMatrix(matrix);
+        long startTime = System.nanoTime();
+        matrix.mirrorColumns();
+        long endTime = System.nanoTime();
+        double duration = endTime - startTime;
+        System.out.println("Time taken: " + duration / 1000000 + " ms");
+        printMatrix(matrix);
+    }
 
-        Matrix matrix1 = new Matrix(10, 10);
-        matrix1.fillWithRandom(2, 20);
-        matrix1.simplify();
-        System.out.println(matrix1);
+    private static void printMatrix(Matrix matrix) {
+        int rowCount = matrix.getRowCount();
+        int columnCount = matrix.getColumnCount();
+        for (int row = 0; row < rowCount; row++) {
+            System.out.print("|");
+            for (int column = 0; column < columnCount; column++) {
+                System.out.printf(" %2d ", matrix.getValue(row, column));
+            }
+            System.out.println("|");
+        }
     }
 }

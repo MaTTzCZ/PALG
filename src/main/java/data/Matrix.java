@@ -4,10 +4,19 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class Matrix {
-    private int[][] matrix;
+    private final int[][] matrix;
+    private int rowCount;
+    private int columnCount;
 
-    public Matrix(int width, int height) {
-        matrix = new int[height][width];
+    public Matrix(int rowCount, int columnCount) {
+        matrix = new int[rowCount][columnCount];
+        this.rowCount = rowCount;
+        this.columnCount = columnCount;
+    }
+
+    public Matrix(int size) {
+        matrix = new int[size][size];
+        this.rowCount = this.columnCount = size;
     }
 
     public Matrix(int[][] matrix) {
@@ -18,14 +27,16 @@ public class Matrix {
             }
             //System.arraycopy(matrix[column], 0, this.matrix[column], 0, matrix[0].length);
         }
-    }
-
-    public int getColumnCount() {
-        return matrix[0].length;
+        this.rowCount = matrix.length;
+        this.columnCount = matrix[0].length;
     }
 
     public int getRowCount() {
-        return matrix.length;
+        return rowCount;
+    }
+
+    public int getColumnCount() {
+        return columnCount;
     }
 
     public int getValue(int row, int column) {
@@ -38,7 +49,7 @@ public class Matrix {
 
 
     public void swapRows(int row1, int row2) {
-        for (int column = 0; column < matrix[0].length; column++) {
+        for (int column = 0; column < columnCount; column++) {
             int temp = matrix[row1][column];
             matrix[row1][column] = matrix[row2][column];
             matrix[row2][column] = temp;
@@ -46,52 +57,51 @@ public class Matrix {
     }
 
     public void swapColumns(int column1, int column2) {
-        for (int row = 0; row < matrix.length; row++) {
+        for (int row = 0; row < rowCount; row++) {
             int temp = matrix[row][column1];
             matrix[row][column1] = matrix[row][column2];
             matrix[row][column2] = temp;
         }
     }
 
-    public void clear() {
-        int rows = matrix.length;
-        int columns = matrix[0].length;
-        matrix = new int[rows][columns];
+    public void mirrorRows() {
+        for (int row = 0; row < rowCount / 2; row++) {
+            swapRows(row, matrix.length - 1 - row);
+        }
     }
 
-    public void simplify() {
-        int rowCount = matrix.length;
-        int columnCount = matrix[0].length;
+    public void mirrorColumns() {
+        for (int column = 0; column < columnCount / 2; column++) {
+            swapColumns(column, matrix[0].length - 1 - column);
+        }
+    }
+
+
+    public void decorate() {
         for (int row = 0; row < rowCount; row++) {
             for (int column = 0; column < columnCount; column++) {
                 if (column == row || column + row == columnCount - 1) matrix[row][column] = 0;
                 else if (column > row && column + row < columnCount - 1) matrix[row][column] = 1;
                 else if (column > row && column + row > columnCount - 1) matrix[row][column] = 2;
                 else if (column < row && column + row > columnCount - 1) matrix[row][column] = 3;
-                else if (column < row && column + row < columnCount - 1) matrix[row][column] = 4;
+                else matrix[row][column] = 4;
             }
         }
     }
 
     public void fillWithRandom(int min, int max) {
-        for (int column = 0; column < matrix.length; column++) {
-            for (int row = 0; row < matrix[0].length; row++) {
+        for (int row = 0; row < rowCount; row++) {
+            for (int column = 0; column < columnCount; column++) {
                 Random r = new Random();
                 int randomInt = r.nextInt(min, max);
-                matrix[column][row] = randomInt;
+                matrix[row][column] = randomInt;
             }
         }
     }
 
-    @Override
-    public String toString() {
-        for (int column = 0; column < matrix.length; column++) {
-            System.out.print("|");
-            for (int row = 0; row < matrix[0].length; row++) {
-                System.out.printf(" %2d ", matrix[column][row]);
-            }
-            System.out.print("|\n");
+    public void clear() {
+        for (int[] ints : matrix) {
+            Arrays.fill(ints, 0);
         }
-        return Arrays.deepToString(matrix);
     }
 }
