@@ -40,7 +40,7 @@ public class Matrix {
     }
 
     public int getValue(int row, int column) {
-        return matrix[column][row];
+        return matrix[row][column];
     }
 
     public void setValue(int value, int row, int column) {
@@ -77,14 +77,14 @@ public class Matrix {
     }
 
 
-    public void decorate() {
+    public void createSectors() {
         for (int row = 0; row < rowCount; row++) {
             for (int column = 0; column < columnCount; column++) {
-                if (column == row || column + row == columnCount - 1) matrix[row][column] = 0;
-                else if (column > row && column + row < columnCount - 1) matrix[row][column] = 1;
-                else if (column > row && column + row > columnCount - 1) matrix[row][column] = 2;
-                else if (column < row && column + row > columnCount - 1) matrix[row][column] = 3;
-                else matrix[row][column] = 4;
+                if (row == column || row + column == columnCount - 1) matrix[row][column] = 0;
+                else if (row < column && row + column < columnCount - 1) matrix[row][column] = 1;
+                else if (row < column && row + column > columnCount - 1) matrix[row][column] = 2;
+                else if (row > column && row + column > columnCount - 1) matrix[row][column] = 3;
+                else if (row > column && row + column < columnCount - 1) matrix[row][column] = 4;
             }
         }
     }

@@ -4,14 +4,14 @@ import dev.mattz.data.Matrix;
 
 public class Main {
     public static void main(String[] args) {
-        Matrix matrix = new Matrix(4);
+        Matrix matrix = new Matrix(10);
         matrix.fillWithRandom(1, 20);
         printMatrix(matrix);
         long startTime = System.nanoTime();
-        matrix.mirrorColumns();
+        matrix.createSectors();
         long endTime = System.nanoTime();
-        double duration = endTime - startTime;
-        System.out.println("Time taken: " + duration / 1000000 + " ms");
+        double duration = (double) (endTime - startTime) / 1000000;
+        System.out.println("Time taken: " + duration + " ms");
         printMatrix(matrix);
     }
 
