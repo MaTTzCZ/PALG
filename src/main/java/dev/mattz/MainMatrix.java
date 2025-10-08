@@ -1,8 +1,8 @@
 package dev.mattz;
 
-import dev.mattz.data.Matrix;
+import dev.mattz.data.matrix.Matrix;
 
-public class Main {
+public class MainMatrix {
     public static void main(String[] args) {
         Matrix matrix = new Matrix(10);
         matrix.fillWithRandom(1, 20);

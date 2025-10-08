@@ -1,4 +1,4 @@
-package dev.mattz.data;
+package dev.mattz.data.matrix;
 
 import java.util.Arrays;
 import java.util.Random;
