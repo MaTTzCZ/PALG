@@ -27,7 +27,6 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements Iterable<K>
         Node<K, V> newNode = new Node<>(key, value);
         if (root == null) {
             root = newNode;
-            return true;
         } else {
             Node<K, V> closestAdept = nodeFinder(key);
             if (closestAdept.key.compareTo(key) == 0) return false;
@@ -38,8 +37,8 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements Iterable<K>
                 closestAdept.right = newNode;
                 newNode.parent = closestAdept;
             }
-            return true;
         }
+        return true;
     }
 
     public Optional<V> search(K key) {
@@ -50,6 +49,35 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements Iterable<K>
             if (closestAdept.key.compareTo(key) == 0) return Optional.of(closestAdept.value);
             else return Optional.empty();
         }
+    }
+
+    public Optional<V> remove(K key) {
+        if (root == null)
+            return Optional.empty();
+        else {
+            Node<K, V> closestAdept = nodeFinder(key);
+            if (closestAdept.key != key)
+                return Optional.empty();
+            if (closestAdept.left == null && closestAdept.right == null) {
+                if (closestAdept.parent.key.compareTo(key) > 0)
+                    closestAdept.parent.left = null;
+                else closestAdept.parent.right = null;
+            } else if (closestAdept.left == null || closestAdept.right == null) {
+                if (closestAdept.parent.key.compareTo(key) > 0) {
+                    if (closestAdept.left == null)
+                        closestAdept.parent.left = closestAdept.right;
+                    else
+                        closestAdept.parent.left = closestAdept.left;
+
+                } else
+                    closestAdept.right.parent = closestAdept.parent;
+                closestAdept.left.parent = closestAdept.parent;
+
+            } else {
+
+            }
+        }
+        return Optional.empty();
     }
 
     @Override
