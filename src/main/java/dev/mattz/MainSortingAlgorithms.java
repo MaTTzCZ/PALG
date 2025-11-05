@@ -13,10 +13,8 @@ public class MainSortingAlgorithms {
         Sort selectionSort = new SelectionSort();
         Sort insertionSort = new InsertionSort();
 
-        int[] numsTest = {5, 3, 4, 2, 1};
 
-
-        int[] nums = utils.createArray(20, 1, 20);
+        int[] nums = utils.createArray(6000, 1, 20);
         System.out.println("Pole před setříděním: " + Arrays.toString(nums));
 
         long bubbleSortStartTime = System.nanoTime();
@@ -26,11 +24,10 @@ public class MainSortingAlgorithms {
         System.out.println("Bubble sort array swaps : " + bubbleSortSwapCount);
 
         long cocktailSortStartTime = System.nanoTime();
-        int cocktailSortSwapCount = cocktailSort.sort(numsTest);
+        int cocktailSortSwapCount = cocktailSort.sort(Arrays.copyOf(nums, nums.length));
         long cocktailSortEndTime = System.nanoTime();
         System.out.println("Cocktail sort time: " + (cocktailSortEndTime - cocktailSortStartTime) / 1000 + " ms");
         System.out.println("Cocktail sort array swaps : " + cocktailSortSwapCount);
-        System.out.println(Arrays.toString(numsTest));
 
         long selectionSortStartTime = System.nanoTime();
         int selectionSortSwapCount = selectionSort.sort(Arrays.copyOf(nums, nums.length));
